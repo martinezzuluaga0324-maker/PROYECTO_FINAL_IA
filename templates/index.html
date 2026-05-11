@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico IA</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="main-container">
+
+    <div class="card">
+
+        <h1>Sistema Inteligente de Predicción de Diabetes</h1>
+
+        <p class="subtitle">
+            Complete la información médica del paciente
+        </p>
+
+        <form method="POST">
+
+            <div class="grid">
+
+                <div class="input-group">
+                    <label>Embarazos</label>
+                    <input type="number" name="pregnancies" required>
+                    <small>Cantidad de embarazos del paciente</small>
+                </div>
+
+                <div class="input-group">
+                    <label>Glucosa</label>
+                    <input type="number" name="glucose" required>
+                    <small>Nivel de glucosa en sangre</small>
+                </div>
+
+                <div class="input-group">
+                    <label>Presión arterial</label>
+                    <input type="number" name="bloodpressure" required>
+                    <small>Valor en mm Hg</small>
+                </div>
+
+                <div class="input-group">
+                    <label>Grosor de piel</label>
+                    <input type="number" name="skinthickness" required>
+                    <small>Medición corporal</small>
+                </div>
+
+                <div class="input-group">
+                    <label>Insulina</label>
+                    <input type="number" name="insulin" required>
+                    <small>Nivel de insulina</small>
+                </div>
+
+                <div class="input-group">
+                    <label>Índice de masa corporal (IMC)</label>
+                    <input type="number" step="0.1" name="bmi" required>
+                    <small>Peso / altura</small>
+                </div>
+
+                <div class="input-group">
+                    <label>Diabetes Pedigree Function</label>
+                    <input type="number" step="0.01" name="dpf" required>
+                    <small>Historial familiar de diabetes</small>
+                </div>
+
+                <div class="input-group">
+                    <label>Edad</label>
+                    <input type="number" name="age" required>
+                    <small>Edad del paciente</small>
+                </div>
+
+            </div>
+
+            <button type="submit">
+                Analizar Riesgo
+            </button>
+
+        </form>
+
+        {% if prediction %}
+
+        <div class="result">
+
+            <h2>Resultado del análisis</h2>
+
+            <p>{{ prediction }}</p>
+
+        </div>
+
+        {% endif %}
+
+        <div class="metrics">
+
+            <h2>Rendimiento del Modelo</h2>
+
+            <div class="metric-box">
+                <p>Accuracy Regresión Logística</p>
+                <span>{{ log_acc }}%</span>
+            </div>
+
+            <div class="metric-box">
+                <p>Accuracy Red Neuronal</p>
+                <span>{{ nn_acc }}%</span>
+            </div>
+
+        </div>
+
+        <div class="matrix">
+
+            <h2>Matriz de Confusión</h2>
+
+            <img src="{{ url_for('static',
+            filename='confusion_matrix.png') }}">
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
